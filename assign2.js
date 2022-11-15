@@ -1,6 +1,6 @@
 
 /* url of song api --- https versions hopefully a little later this semester */	
-const api = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
+const api = 'http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
 
 
 const playlist = [];
@@ -39,21 +39,6 @@ function populateGenres(){
 	}
 }
 
-/*
-for some reason all songs run this upon search and button doesnt work.
-*/
-// function pbtnHandler(id, remove){
-// 	let song;
-// 	console.log(`HANDLER: ID:${id}, REMOVE: ${remove}`);
-// 	if(remove == -1){
-// 		song = songdata.find((i)=>i.song_id==id);
-// 		playlist.push(song);
-// 	}
-// 	else{
-// 		//song = playlist.splice(remove, 1);
-// 		//populateSongs(playlist, 1)
-// 	}
-// }
 
 function populateSongs(disp, pview){
 	let tables = document.querySelectorAll(".tablebody");
@@ -316,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	const data = localStorage.getItem('jevansongdata');
 	if(!data){
 		fetch(api)
-		.then( response =>{response.json()})
+		.then(response => response.json())
 		.then(dat =>{
 			console.log(dat);
 			songdata = dat;
