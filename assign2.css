@@ -1,0 +1,93 @@
+fieldset{
+	border:none;
+	display: inline-block;
+}
+
+
+#header{
+	width: 100%;
+	border: 2px solid black;
+	height: 75px;
+	display: block visible;
+	text-align: right;
+}
+
+#header h1{
+	text-align: center;
+}
+
+#searchbox{
+	width: 350px;
+	padding: 20px;
+	display: inline-block;
+	border: solid 2px black;
+	height:300px;
+
+}
+ 
+.inputbox{
+	width: 150px;
+	height: 23px;
+	margin: 5px;
+}
+
+.searchnode{
+	display: block;
+	padding: 10px 0px 10px 0px;
+}
+
+.searchnode *{
+	display:inline;
+}
+
+#search-results{
+	display:inline visible;
+	width:1200px;
+	height:300px;
+	border: solid 2px black;
+	overflow: scroll;
+}
+
+#search-results *{
+	text-align: center;
+}
+table{
+	padding: 0 100px 0 100px;
+}
+
+table *{
+	padding: 5px 40px 5px 40px;
+}
+
+td.stitle{
+	color: blue;
+	text-decoration: underline;
+}
+td.stitle:hover{
+	color: lightblue
+}
+
+#playlist-box{
+	display:inline visible;
+	width:100%;
+	height:700px;
+	border: solid 2px black;
+	overflow: scroll;
+	text-align: center;
+}
+
+#playlist-box h3 #playlist-box h1 #playlist-box button{
+	display: inline;
+	margin: 0px 0px 0px 50px
+}
+#playlist-box table{
+	display: block;
+}
+#playlist-box button{
+	margin: 0px 0px 0px 500px;
+}
+
+.hidden{
+	display: none;
+}
+
