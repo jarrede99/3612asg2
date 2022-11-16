@@ -305,8 +305,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		.then(dat =>{
 			console.log(dat);
 			songdata = dat;
-			//const store = JSON.stringify(songdata);
-			//localStorage.setItem('jevansongdata', store);
+			const store = JSON.stringify(songdata);
+			localStorage.setItem('jevansongdata', store);
 			postfetch();
 		});
 	}
