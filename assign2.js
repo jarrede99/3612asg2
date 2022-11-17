@@ -13,6 +13,7 @@ let songdata;
 let currentView = "searchview";
 let previousView = "playlist";
 let activeSnode;
+let searchedSongs = [];
 
 
 function populateArtists(){
@@ -168,6 +169,9 @@ function createButtons(){
 				id = e.target.getAttribute("data-id");
 				song = songdata.find((i)=>i.song_id==id);
 				playlist.push(song);
+				let popup = document.querySelector("#toast-noti");
+				popup.setAttribute("class","show");
+				setTimeout(()=>{ popup.removeAttribute("class"); }, 3000);
 			}
 			else{
 				id = e.target.getAttribute("data-pindex");
@@ -192,6 +196,137 @@ function createButtons(){
 			singleSong(id);
 		});
 	}
+}
+
+function sortchange(){
+	let sortbtn = document.querySelectorAll("#search-results th");
+	for (button of sortbtn){
+		button.addEventListener("click", (e)=>{
+			if(e.target.textContent=="Title v"){
+				e.target.textContent="Title ^";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Title ^"){
+				e.target.textContent="Title v";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+			}
+			else if(e.target.textContent=="Artist v"){
+				e.target.textContent="Artist ^";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.artist.name.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.artist.name.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Artist ^"){
+				e.target.textContent="Artist v";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.artist.name.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.artist.name.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+			}
+			else if(e.target.textContent=="Year v"){
+				e.target.textContent="Year ^";
+				searchedSongs.sort((a, b)=>a.year - b.year);
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Year ^"){
+				e.target.textContent="Year v";
+				searchedSongs.sort((a, b)=>a.year - b.year);
+			}
+			else if(e.target.textContent=="Genre v"){
+				e.target.textContent="Genre ^";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.genre.name.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.genre.name.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Genre ^"){
+				e.target.textContent="Genre v";
+				searchedSongs.sort((a, b)=>{
+					const nameA = a.genre.name.toUpperCase(); // ignore upper and lowercase
+					const nameB = b.genre.name.toUpperCase(); // ignore upper and lowercase
+					if (nameA < nameB) {
+						return -1;
+					}
+					if (nameA > nameB) {
+						return 1;
+					}
+		
+					// names must be equal
+					return 0;
+				});
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Popularity v"){
+				e.target.textContent="Popularity ^";
+				searchedSongs.sort((a, b)=>a.details.popularity - b.details.popularity);
+				searchedSongs.reverse();
+			}
+			else if(e.target.textContent=="Popularity ^"){
+				e.target.textContent="Popularity v";
+				searchedSongs.sort((a, b)=>a.details.popularity - b.details.popularity);
+			}
+
+			populateSongs(searchedSongs, 0);
+			createButtons();
+		});
+	}
+
+
 }
 
 /* add "hidden" class to all "main" elements and 
@@ -272,22 +407,34 @@ function postfetch(){
 			activeSnode.querySelector(".inputbox").setAttribute("disabled", "")
 			titlenode.querySelector(".inputbox").removeAttribute("disabled");
 		}
-		let searchedSongs = [];
 		if(formData.get("title")){
-			searchedSongs = songdata.filter((i)=>i.title.includes(formData.get("title")));
-			populateSongs(searchedSongs, 0);
+			console.log(formData);
+			searchedSongs = songdata.filter((i)=>i.title.toString().includes(formData.get("title")));
+			console.log(searchedSongs);
 		}
 		else if(formData.get("artists")){
 			searchedSongs = songdata.filter((i)=>i.artist.name == formData.get("artists"));
-			populateSongs(searchedSongs, 0);
 		}
-		else if(formData.get("genre")){
+		else if(formData.get("genres")){
 			searchedSongs = songdata.filter((i)=>i.genre.name == formData.get("genres"));
-			populateSongs(searchedSongs, 0);
 		}
-		else{
-			populateSongs(songdata, 0);
-		}
+		// else{
+		// 	populateSongs(songdata, 0);
+		// }
+		searchedSongs.sort((a, b)=>{
+			const nameA = a.title.toUpperCase(); // ignore upper and lowercase
+			const nameB = b.title.toUpperCase(); // ignore upper and lowercase
+			if (nameA < nameB) {
+				return -1;
+			}
+			if (nameA > nameB) {
+				return 1;
+			}
+
+			// names must be equal
+			return 0;
+			});
+		populateSongs(searchedSongs, 0);
 		createButtons();
 	});
 }
@@ -316,6 +463,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		postfetch();
 	}
 	toggleInput();
+	sortchange();
+
+	let credit = document.querySelector("#credits");
+	credit.addEventListener('mouseover', () => {
+		let popup = document.querySelector("#credits-popup");
+		popup.setAttribute("class","show");
+		setTimeout(()=>{ popup.removeAttribute("class"); }, 5000);
+	});
 
 })
 

@@ -7,7 +7,7 @@ fieldset{
 #header{
 	width: 100%;
 	border: 2px solid black;
-	height: 75px;
+	height: 125px;
 	display: block visible;
 	text-align: right;
 }
@@ -15,6 +15,7 @@ fieldset{
 #header h1{
 	text-align: center;
 }
+
 
 #searchbox{
 	width: 350px;
@@ -41,11 +42,11 @@ fieldset{
 }
 
 #search-results{
-	display:inline visible;
+	display:inline-block visible;
 	width:1200px;
 	height:300px;
 	border: solid 2px black;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 #search-results *{
@@ -91,3 +92,48 @@ td.stitle:hover{
 	display: none;
 }
 
+#toast-noti {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 30px;
+	font-size: 17px;
+  }
+  
+#toast-noti.show {
+	visibility: visible;
+	-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+	animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+  
+#credits-popup {
+	visibility: hidden;
+	min-width: 250px;
+	margin-left: -125px;
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 90%;
+	top: 120px;
+	font-size: 17px;
+}
+
+#credits-popup.show {
+	visibility: visible;
+}
+
+#puppycat{
+	width: 50px;
+}
