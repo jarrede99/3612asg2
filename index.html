@@ -3,6 +3,7 @@
 <head>
    <meta charset="utf-8"/>  
     <title>Assignment 2</title>   
+	<script	src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 	<script src="./genres.json"></script>
 	<script src="./artists.json"></script>
 	<script src="assign2.js"></script>
@@ -46,9 +47,8 @@
 					<option value="none" selected disabled hidden>Pick one...</option>
 				</select>
 			</div>
-
-			<input type="reset" value="Clear">
 			<input id = "submitbtn" type="submit" value="Search">                  
+			<input type="reset" value="Clear">
 
         </fieldset>
 
@@ -57,14 +57,14 @@
 		<h1>Search Results</h1>
 		<table>
 			<tr>
-			<th>Title ^</th><th>Artist ^</th><th>Year ^</th><th>Genre ^</th><th>Popularity ^</th><th>Playlist</th>
+			<th>Title ^</th><th>Artist ^</th><th>Year ^</th><th>Genre ^</th><th>Popularity ^</th><th class="ni">Playlist</th>
 			</tr>
 			<tbody class="tablebody">
 			</tbody>
 		</table>
 	</div>
 </main>
-<div id="toast-noti">Added to playlist! <img id="puppycat" src="https://64.media.tumblr.com/a137b601e88e7ef57ebd4221cde0089f/3944de1dcd7a0391-a9/s540x810/57cd41195e034d692a88878582b4bbf4b1cbd177.gifv"></div>
+<div id="toast-noti">Added to playlist! <img id="puppycat" src="https://64.media.tumblr.com/a48eb4fb5a70f6655fb1c27a0c0e9a9d/00f7a3f11b0d54ac-6e/s250x400/9bd87d3ddb2251eeb90cc90627b56eb34747e8aa.gifv"></div>
 <main id="playlist" class="hidden">
 	<div id="playlist-box">
 		<h1>Playlist Details</h1> <h3>0 songs so far. Add some!</h3> <button>Clear Playlist</button>
@@ -78,14 +78,14 @@
 	</div>
 </main>
 <main id=songview class="hidden">
-	<div id="song information">
+	<div id="song-information">
 		<h3>Song Information:</h3>
 		<p>Song analysis:</p>
 		<div id="info"></div>
 	</div>
-	<div id="radar">
+	<canvas id="chart">
 
-	</div>
+	</canvas>
 </main>
 </body>
 </html>

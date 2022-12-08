@@ -44,7 +44,6 @@ function populateGenres(){
 function populateSongs(disp, pview){
 	let tables = document.querySelectorAll(".tablebody");
 	let parent = tables[pview];
-	parent.innerHTML="";
 	if(disp.length > 0){
 		for (let i = 0; i < disp.length; i++){
 			let row = document.createElement("tr");
@@ -158,6 +157,22 @@ function singleSong(id){
 	text.textContent = `popularity: ${song.details.popularity}`;
 	list.appendChild(text);
 	info.appendChild(list);
+
+	const ctx = document.querySelector('#chart');
+
+	new Chart(ctx, {
+		type: 'radar',
+		data: {
+			labels: ['energy', 'danceability', 'liveness', 'valence', 'acousticness', 'speechiness'],
+			datasets: [{
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				data: [song.analytics.energy, song.analytics.danceability, song.analytics.liveness, song.analytics.valence, song.analytics.acousticness, song.analytics.speechiness],
+				borderWidth: 1
+			}]
+	  	},
+		options: {}
+	});
+  
 }
 
 function createButtons(){
@@ -397,6 +412,12 @@ function postfetch(){
 
 	//submitting a search term
 	const form = document.querySelector("#searchbox");
+
+	form.addEventListener("reset", (e)=>{
+		let parent = document.querySelector(".tablebody");
+		parent.innerHTML="";
+	});
+
 	form.addEventListener("submit", (e)=>{
 		e.preventDefault();
 		const formData = new FormData(form);
@@ -409,7 +430,7 @@ function postfetch(){
 		}
 		if(formData.get("title")){
 			console.log(formData);
-			searchedSongs = songdata.filter((i)=>i.title.toString().includes(formData.get("title")));
+			searchedSongs = songdata.filter((i)=>i.title.toString().toUpperCase().includes(formData.get("title").toUpperCase()));
 			console.log(searchedSongs);
 		}
 		else if(formData.get("artists")){
@@ -418,9 +439,9 @@ function postfetch(){
 		else if(formData.get("genres")){
 			searchedSongs = songdata.filter((i)=>i.genre.name == formData.get("genres"));
 		}
-		// else{
-		// 	populateSongs(songdata, 0);
-		// }
+		else{
+		 	searchedSongs = songdata;
+		}
 		searchedSongs.sort((a, b)=>{
 			const nameA = a.title.toUpperCase(); // ignore upper and lowercase
 			const nameB = b.title.toUpperCase(); // ignore upper and lowercase
